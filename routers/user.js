@@ -1,50 +1,21 @@
 const express = require("express");
-const {User} = require('../models/users');
+const userController = require("../controllers/userController")
 
 const router = express.Router();
 
-router.post('/login', async(req,res) => {
-    try {
-        const detail = req.body;
-        const userDetail = await User.findOne({email : detail.email})
-        if(!userDetail){
-            res.status(404).json({"message": "User not exist!"})
-        }
-        if(detail.password === userDetail.password){
-            res.status(200).json({"message": "Login successfully"})
-        }
-        else{
-            res.status(200).json({"message": "Invalid Credentials"})
-        }
-    } catch (err) {
-        res.status(404).send("OOps Something went wrong!")
-        console.log(err);
-    }
-})
+//POST router to login the user
+router.post('/login', userController.login)
 
-router.post('/signup', async(req,res) => {
-    try {
-        let user = await User.findOne({email: req.body.email})
-        if(user){
-            res.status(200).json({"message": "User account already exist"})
-        }
-        user = new User(req.body);
-        await user.save();
-        res.status(201).json({"message": "Signup Successfully"})
-    } catch (err) {
-        res.status(404).send("OOps Something went wrong!")
-        console.log(err);
-    }
-})
+//POST router to sign up the user
+router.post('/signup', userController.signup)
 
-router.get('/all', async(req,res) => {
-    try {
-        const allUser = await User.populate({
-            
-        })
-    } catch (err) {
-        
-    }
-})
+//GET router to see all the user
+router.get('/all', userController.all)
+
+//DELETE router to delete the user profile
+router.delete('/delete/:id', userController.delete)
+
+//PUT router to update the user profile
+router.put('/update/:id', userController.update)
 
 module.exports = router;

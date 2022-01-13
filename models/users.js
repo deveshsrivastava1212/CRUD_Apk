@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
     },
     img: {
         type: String
+    },
+    isUser: {
+        type:Boolean,
+        default:true
     }
     
 })

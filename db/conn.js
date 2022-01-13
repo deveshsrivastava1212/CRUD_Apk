@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+require("dotenv/config")
 
 try{
 const conn = mongoose.connect("mongodb+srv://Devesh:123qwe@cluster0.6rpwh.mongodb.net/UserManagement?retryWrites=true&w=majority",{
