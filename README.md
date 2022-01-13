@@ -15,5 +15,5 @@ After login functionality:
  - Edit / update the existing user
  - Delete the user
  
-To run in development mode type command > npm run dev
-To run in production mode type command > npm start
+-To run in development mode type command > npm run dev
+-To run in production mode type command > npm start
