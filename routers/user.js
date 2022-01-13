@@ -1,5 +1,7 @@
 const express = require("express");
 const userController = require("../controllers/userController")
+const auth = require("../middleware/auth")
+
 
 const router = express.Router();
 
@@ -7,15 +9,15 @@ const router = express.Router();
 router.post('/login', userController.login)
 
 //POST router to sign up the user
-router.post('/signup', userController.signup)
+router.post('/signup',  userController.signup)
 
 //GET router to see all the user
-router.get('/all', userController.all)
+router.get('/all',auth, userController.all)
 
 //DELETE router to delete the user profile
-router.delete('/delete/:id', userController.delete)
+router.delete('/delete/:id', auth,userController.delete)
 
 //PUT router to update the user profile
-router.put('/update/:id', userController.update)
+router.put('/update/:id',auth, userController.update)
 
 module.exports = router;
