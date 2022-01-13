@@ -10,8 +10,8 @@ exports.login = async (req, res) => {
             res.status(404).json({ "message": "User not exist!" })
         }
         if (detail.password === user.password) {
-            const token = jwt.sign({ _id: user._id }, 'thisissecretkey', {expiresIn: '1m'});
-            res.header('auth-token', token).json({"token":token })
+            const token = jwt.sign({ _id: user._id }, 'thisissecretkey', {expiresIn: '2m'});
+            res.header('auth-token', token).json({"message":"Successfully login" ,"token":token })
         }
         else {
             res.status(200).json({ "message": "Invalid Credentials" })
@@ -46,6 +46,22 @@ exports.all = async (req, res) => {
             isUser: true
         })
         res.status(200).send(allUser);
+    } catch (err) {
+        res.status(500).send("OOps Something went wrong!")
+        console.log(err);
+    }
+}
+
+//add new user
+exports.adduser = async (req,res) => {
+    try {
+        let user = await User.findOne({ email: req.body.email })
+        if (user) {
+            res.status(200).json({ "message": "User account already exist" })
+        }
+        user = new User(req.body);
+        await user.save();
+        res.status(201).json({ "message": "You successfully added new user" })
     } catch (err) {
         res.status(500).send("OOps Something went wrong!")
         console.log(err);

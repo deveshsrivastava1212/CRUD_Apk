@@ -14,6 +14,9 @@ router.post('/signup',  userController.signup)
 //GET router to see all the user
 router.get('/all',auth, userController.all)
 
+//add another user
+router.post('/adduser', auth, userController.adduser)
+
 //DELETE router to delete the user profile
 router.delete('/delete/:id', auth,userController.delete)
 
